@@ -8,7 +8,7 @@ A simple stock tracker app made in Rust
 
 ## To-do
 - [X] Basic UI functionality (update items, add items, remove items)
-- [] Fetch data from web
+- [ ] Fetch data from web
 
 ## Libraries used
 Slint
