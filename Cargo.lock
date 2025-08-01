@@ -2640,16 +2640,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "material-gallery"
-version = "1.11.0"
-dependencies = [
- "console_error_panic_hook",
- "slint",
- "slint-build",
- "wasm-bindgen",
-]
-
-[[package]]
 name = "maybe-rayon"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4129,6 +4119,16 @@ name = "static_assertions"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
+
+[[package]]
+name = "stocks"
+version = "1.11.0"
+dependencies = [
+ "console_error_panic_hook",
+ "slint",
+ "slint-build",
+ "wasm-bindgen",
+]
 
 [[package]]
 name = "strict-num"

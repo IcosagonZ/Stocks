@@ -8,31 +8,44 @@ export component AppWindow inherits Window
     height: 600px;
 
     callback update_clicked();
+    callback add_clicked();
+    callback remove_clicked();
+
+    in-out property <[[StandardListViewItem]]> stocks: [];
 
     VerticalLayout
     {
         HorizontalLayout
         {
+            Rectangle
+            {
+                width: 10px;
+                vertical-stretch: 0;
+            }
             Text
             {
                 text: "Stocks";
+                vertical-alignment: center;
             }
             Rectangle
             {
                 horizontal-stretch: 1;
                 vertical-stretch: 0;
             }
-            Button
+            IconButton
             {
-                text: "+";
+                icon: @image-url("icons/add.svg");
+                clicked=>{add_clicked()}
             }
-            Button
+            IconButton
             {
-                text: "-";
+                icon: @image-url("icons/remove.svg");
+                clicked=>{remove_clicked()}
             }
-            Button
+            IconButton
             {
-                text: "↻";
+                icon: @image-url("icons/refresh.svg");
+                clicked=>{update_clicked()}
             }
         }
 
@@ -41,14 +54,10 @@ export component AppWindow inherits Window
             columns: [
                 {title: "Ticker"},
                 {title: "Price"},
+                {title: "Change"},
             ];
 
-            rows: [
-                [
-                    {text: "BPCL"},
-                    {text: "400"}
-                ],
-            ];
+            rows: root.stocks;
         }
     }
 }

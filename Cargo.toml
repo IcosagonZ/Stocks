@@ -1,22 +1,21 @@
-# Copyright © SixtyFPS GmbH <info@slint.dev>
 # SPDX-License-Identifier: MIT
 
 [package]
-name = "material-gallery"
+name = "stocks"
 version = "1.11.0"
-authors = ["Slint Developers <info@slint.dev>"]
+authors = ["Icosagon, Slint Developers <info@slint.dev>"]
 edition = "2021"
 publish = false
 license = "MIT"
 
-[lib]
-crate-type = ["lib", "cdylib"]
-path = "src/lib.rs"
-name = "gallery_lib"
+#[lib]
+#crate-type = ["lib", "cdylib"]
+#path = "src/lib.rs"
+#name = "gallery_lib"
 
 [[bin]]
 path = "src/main.rs"
-name = "material_gallery"
+name = "Stocks"
 
 [dependencies]
 slint = { version = "1.11", features = ["backend-android-activity-06"] }
@@ -29,8 +28,8 @@ console_error_panic_hook = "0.1.5"
 slint-build = { version = "1.11"  }
 
 [package.metadata.android]
-package = "dev.slint.material"
-apk_name = "slint_material"
+package = "dev.icosagon.stocks"
+apk_name = "stocks"
 
 [package.metadata.android.application]
-label = "Slint Material"
+label = "Stocks"
