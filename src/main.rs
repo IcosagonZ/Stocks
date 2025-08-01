@@ -1,9 +1,23 @@
-// Copyright © SixtyFPS GmbH <info@slint.dev>
-// SPDX-License-Identifier: MIT
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-// In order to be compatible with both desktop, wasm, and android, the example is both a binary and a library.
-// Just forward to the library in main
+//use std::error::Error;
 
-fn main() {
-    gallery_lib::main();
+slint::include_modules!();
+
+fn update_clicked()
+{
+    println!("APP: Update requested");
+}
+
+// Main program
+fn main() -> Result<(), slint::PlatformError>
+{
+    let app_ui = AppWindow::new()?;
+
+    app_ui.on_update_clicked(|| update_clicked());
+
+
+    app_ui.run()?;
+
+    Ok(())
 }
