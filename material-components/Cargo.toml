@@ -1,0 +1,13 @@
+# Copyright © SixtyFPS GmbH <info@slint.dev>
+# SPDX-License-Identifier: MIT
+
+[package]
+name = "slint-material-components"
+authors = ["Slint Developers <info@slint.dev>"]
+edition = "2021"
+repository = "https://github.com/slint-ui/slint"
+license = "MIT"
+description = "Material Design 3 component set for Slint"
+version = "0.1.0"
+homepage = "https://slint.rs"
+rust-version = "1.82"

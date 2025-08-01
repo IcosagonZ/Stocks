@@ -1,0 +1,285 @@
+---
+// Copyright © SixtyFPS GmbH <info@slint.dev>
+// SPDX-License-Identifier: MIT
+import Layout from "~/layouts/PageLayout.astro";
+
+import Hero from "~/components/widgets/Hero.astro";
+import Note from "~/components/widgets/Note.astro";
+import Features from "~/components/widgets/Features.astro";
+import Features2 from "~/components/widgets/Features2.astro";
+import Steps from "~/components/widgets/Steps.astro";
+import Content from "~/components/widgets/Content.astro";
+import FAQs from "~/components/widgets/FAQs.astro";
+import CallToAction from "~/components/widgets/CallToAction.astro";
+
+const metadata = {
+    title: "Material UI — Free awesome components for making your Slint apps look great",
+    ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    actions={[
+      { text: 'Features', href: '#features' },
+      { text: 'Demo', href: '/wasm/index.html' },
+    ]}
+    image={{ src: '~/assets/images/phone-dark.webp', alt: 'Material Components Hero Image' }}
+  >
+    <Fragment slot="title">
+      Slint +
+      <span
+        class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent dark:from-cyan-400 dark:via-fuchsia-500 dark:to-yellow-400"
+      >
+      Material Design
+      </span>
+      <br/>Start building your next product today
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="hidden sm:inline">
+        It's never been easier to build a touch based device. </span
+      >
+      Combine Slint's production grade toolkit with everyone's favorite <span class="font-semibold">Material Design Components</span>
+    </Fragment>
+  </Hero>
+
+  <!-- Note Widget ******************* -->
+
+  <Note title="Android user?" description="Test out the Slint Material Design components on your phone!" href="https://material.slint.dev/apk/slint_material.apk" />
+
+  <!-- Features Widget *************** -->
+
+  <Features
+    id="features"
+    tagline="Features"
+    title="Not everyone wants to build their own UI components"
+    subtitle="But every product should have a great design."
+    items={[
+      {
+        title: 'Make your product shine',
+        description:
+          'Stand out from the crowd with an award winning design system. Material components arn\'t just functional, they are beautiful.',
+        icon: 'tabler:award',
+      },
+      {
+        title: 'Unbelievably easy to develop with',
+        description:
+          'There has never been an easier way to build a Material design product. Slint\'s simple syntax and powerful tooling will have you shipping in days.',
+        icon: 'tabler:gauge',
+      },
+      {
+        title: '10 years in the making',
+        description:
+          "Build your product with the worlds most used design system. It\'s been the foundation of Android phones since 2014 and proven in billions of devices.",
+        icon: 'tabler:play-card-10',
+      },
+      {
+        title: 'Build anything - deploy everywhere',
+        description:
+          'Watches, medical devices, in-car infotainment, and more. Material UI components work seamlessly across desktop, mobile, and embedded platforms.',
+        icon: 'tabler:devices',
+      },
+
+      {
+        title: 'Touch-Optimized',
+        description:
+          'Designed specifically for touch interfaces with appropriate touch targets and gestures.',
+        icon: 'tabler:hand-click',
+      },
+      {
+        title: 'Customizable Themes',
+        description:
+          'Easy theming with Material Theme builder support, allowing you to match your brand colors and design preferences.',
+        icon: 'tabler:paint',
+      },
+    ]}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    isAfterContent
+    items={[
+      {
+        title: 'Material Design Customization',
+        description: `Tailor the Material Design theme effortlessly to match your brand's identity and requirements, making your app distinct and professional.`,
+      },
+      {
+        title: 'Flexible Component Layouts',
+        description:
+          'Explore various layout options with responsive grids, flexible containers, and adaptive components that work across all screen sizes.',
+      },
+      {
+        title: 'Cross-Platform Responsiveness',
+        description:
+          "Ensure your app's optimal performance on various devices and screen sizes, providing a consistent and enjoyable user experience.",
+      },
+      {
+        title: 'Rich Media Support',
+        description:
+          'Seamlessly incorporate images, icons, and multimedia elements that enhance your content and engage users effectively.',
+      },
+    ]}
+    image={{
+      src: '~/assets/images/material-award.jpg',
+      alt: 'Slint Material UI Components',
+    }}
+  >
+    <Fragment slot="content">Build professional applications with Material Design.</Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <!-- Steps Widget ****************** -->
+
+  <Steps
+  isReversed
+    title="Get your Slint application up and running in no time with Material UI."
+    items={[
+      {
+        title: 'Step 1: <span class="font-medium">Install Slint</span>',
+        description:
+          "Install Slint and the VS Code extension for the best development experience.",
+        icon: 'tabler:package',
+      },
+      {
+        title: 'Step 2: <span class="font-medium">Add Material UI</span>',
+        description:
+          "Include Material UI components in your Slint project and start building your interface.",
+        icon: 'tabler:plus',
+      },
+      {
+        title: 'Step 3: <span class="font-medium">Customize Theme</span>',
+        description:
+          'Use the Material Theme builder to customize colors, typography, and component styles.',
+        icon: 'tabler:paint',
+      },
+      {
+        title: 'Ready!',
+        icon: 'tabler:check',
+      },
+    ]}
+    image={{
+      src: '~/assets/images/material-design.jpg',
+      alt: 'Slint Material UI Setup',
+    }}
+  />
+
+  <!-- Features2 Widget ************** -->
+
+  <Features2
+    title="Core Material UI Components"
+    subtitle="Essential components for building modern Slint applications with Material Design"
+    tagline="Components"
+    items={[
+      {
+        title: 'Buttons',
+        description:
+          "Multiple button variants including filled, outlined, and tonal styles for different interaction contexts.",
+        icon: 'buttons',
+      },
+      {
+        title: 'Form Controls',
+        description: 'Text fields, checkboxes, switches, and other input components for user data collection.',
+        icon: 'forms',
+      },
+      {
+        title: 'Cards',
+        description:
+          'Content containers with elevation and various layouts for displaying information in organized, visually appealing ways.',
+        icon: 'cards',
+      },
+      {
+        title: 'Dialogs',
+        description:
+          "Modal interfaces for important actions, confirmations, and detailed information that require user attention.",
+        icon: 'dialogs',
+      },
+      {
+        title: 'Navigation',
+        description:
+          'Drawers, navigation rails, and bottom navigation bars for seamless app navigation and structure.',
+        icon: 'navigation',
+      },
+      {
+        title: 'App Bars',
+        description: "Top-level navigation components with actions, titles, and search functionality for your app's main interface.",
+        icon: 'appbar',
+      },
+
+      {
+        title: 'Progress Indicators',
+        description: 'Loading spinners and progress bars to provide feedback during operations and data loading.',
+        icon: 'progress-indicators',
+      },
+      {
+        title: 'Snackbars',
+        description:
+          'Brief notifications that appear at the bottom of the screen to provide feedback and confirm actions.',
+        icon: 'snackbars',
+      },
+      {
+        title: 'Tooltips',
+        description: "Contextual help and information that appears when users hover or focus on interface elements.",
+        icon: 'tooltips',
+      },
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Features2>
+
+  <!-- FAQs Widget ******************* -->
+
+  <FAQs
+    title="Frequently Asked Questions"
+    subtitle="Learn more about Slint Material UI components and how they can enhance your application development."
+    tagline="FAQs"
+    classes={{ container: 'max-w-6xl' }}
+    items={[
+      {
+        title: 'What platforms does Slint Material UI support?',
+        description:
+          "Slint Material UI works across desktop (Windows, macOS, Linux), mobile (iOS, Android), and embedded platforms, providing consistent Material Design components everywhere.",
+      },
+      {
+        title: 'How do I integrate Material UI into my Slint project?',
+        description:
+          'Simply include the Material UI components in your Slint project, import the components you need, and start building your interface with Material Design principles.',
+      },
+      {
+        title: 'Can I customize the Material Design theme?',
+        description:
+          "Yes! Slint Material UI is fully compatible with Material Theme builder, allowing you to customize colors, typography, and component styles to match your brand.",
+      },
+    ]}
+  />
+
+  <!-- CallToAction Widget *********** -->
+
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Get Started',
+        href: 'https://github.com/slint-ui/material-components',
+        target: '_blank',
+        icon: 'tabler:download',
+      },
+    ]}
+  >
+    <Fragment slot="title">
+      Slint&nbsp;+&nbsp;<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">Material UI</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Start building beautiful, professional applications today with Material Design components for Slint.
+    </Fragment>
+  </CallToAction>
+</Layout>
