@@ -1,0 +1,38 @@
+import {Button, StandardButton, LineEdit, VerticalBox} from "std-widgets.slint";
+
+export component AddDialog inherits Dialog
+{
+    in-out property <string> ticker_text;
+    callback add_confirmed(text:string);
+    callback add_close();
+
+    VerticalBox
+    {
+        Text
+        {
+            text: "Add item";
+        }
+        LineEdit
+        {
+            text <=> root.ticker_text;
+            placeholder-text: "Ticker";
+        }
+    }
+    StandardButton
+    {
+        kind: ok;
+        clicked=>
+        {
+            root.add_confirmed(root.ticker_text);
+        }
+    }
+    StandardButton
+    {
+        kind: cancel;
+        clicked=>
+        {
+            add_close();
+        }
+    }
+
+}

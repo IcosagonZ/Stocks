@@ -1,15 +1,23 @@
 import { IconButton } from "../material-components/material.slint";
 import { Button, VerticalBox, HorizontalBox, StandardTableView } from "std-widgets.slint";
 
+import {AddDialog} from "add-dialog.slint";
+
 export component AppWindow inherits Window
 {
     title: "Stocks";
     width: 300px;
     height: 600px;
 
+    property <bool> show_add_dialog: false;
+
     callback update_clicked();
     callback add_clicked();
     callback remove_clicked();
+
+    callback add_return(text:string);
+
+    in-out property <string> add_dialog_text;
 
     in-out property <[[StandardListViewItem]]> stocks: [];
 
@@ -35,7 +43,9 @@ export component AppWindow inherits Window
             IconButton
             {
                 icon: @image-url("icons/add.svg");
-                clicked=>{add_clicked()}
+                //clicked=>{add_clicked()}
+                clicked=> {root.show_add_dialog=true;}
+
             }
             IconButton
             {
@@ -58,6 +68,23 @@ export component AppWindow inherits Window
             ];
 
             rows: root.stocks;
+        }
+    }
+
+    AddDialog
+    {
+        visible: root.show_add_dialog;
+        ticker_text <=> root.add_dialog_text;
+
+        add_confirmed(text) =>
+        {
+            root.add_dialog_text = text;
+            root.show_add_dialog = false;
+            add_return(root.add_dialog_text);
+        }
+        add_close =>
+        {
+            root.show_add_dialog = false;
         }
     }
 }

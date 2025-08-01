@@ -98,6 +98,11 @@ fn main() -> Result<(), slint::PlatformError>
         app_ui.on_remove_clicked(move || remove_clicked(&stock_rows, &stock_model));
     }
 
+    app_ui.on_add_return(move |text|
+    {
+        println!("APP: Ticker to add {}", text);
+    });
+
 
     app_ui.run()?;
 
