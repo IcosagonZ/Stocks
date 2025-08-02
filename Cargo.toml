@@ -2,26 +2,25 @@
 
 [package]
 name = "stocks"
-version = "1.11.0"
-authors = ["Icosagon, Slint Developers <info@slint.dev>"]
+version = "0.1.0"
+authors = ["Icosagon"]
 edition = "2021"
 publish = false
 license = "MIT"
-
-#[lib]
-#crate-type = ["lib", "cdylib"]
-#path = "src/lib.rs"
-#name = "gallery_lib"
 
 [[bin]]
 path = "src/main.rs"
 name = "Stocks"
 
+[lib]
+crate-type = ["cdylib"]
+
 [dependencies]
-slint = { version = "1.11", features = ["renderer-software", "backend-android-activity-06"] }
+slint = { version = "1.11", features = ["backend-android-activity-06"] }
 tokio = { version = "1.0", features = ["full"] }
-reqwest = { version = "0.11", features = ["json"] }
+reqwest = { version = "0.11", default-features = false, features = ["rustls-tls", "json"] }
 serde = { version = "1.0", features = ["derive"] }
+smol = "2.0.2"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 wasm-bindgen = { version = "0.2" }
@@ -31,8 +30,22 @@ console_error_panic_hook = "0.1.5"
 slint-build = { version = "1.11"  }
 
 [package.metadata.android]
+target_sdk_version = 34
+min_sdk_version = 28
 package = "dev.icosagon.stocks"
 apk_name = "stocks"
 
 [package.metadata.android.application]
 label = "Stocks"
+
+# ADD KEYSTORE STUFF HERE FROM CARGO.TXT
+#[package.metadata.android.signing.release]
+#path = ""
+#keystore_password = ""
+#key_alias = ""
+#key_password = ""
+
+[profile.release]
+opt-level = "z"   # Optimize for size
+lto = true        # Link Time Optimization
+codegen-units = 1 # Better optimizations

@@ -1,4 +1,5 @@
-[target.x86_64-pc-windows-msvc]
+[target.x86_64-pc-windows-gnu]
+linker = "x86_64-w64-mingw32-gcc"
 # Increase default stack size to avoid running out of stack
 # space in debug builds. The size matches Linux's default.
 rustflags = [

@@ -1,0 +1,5 @@
+[package.metadata.android.signing.release]
+path = "/media/rohan/Development/Projects/Stocks/android-keystore.jks"
+keystore_password = "icosagon"
+key_alias = "icosagon"
+key_password = "icosagon"
