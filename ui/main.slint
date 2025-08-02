@@ -10,7 +10,6 @@ export component AppWindow inherits Window
     height: 600px;
 
     property <bool> show_add_dialog: false;
-
     callback update_clicked();
     callback add_clicked();
     callback remove_clicked();
@@ -62,9 +61,10 @@ export component AppWindow inherits Window
         StandardTableView
         {
             columns: [
-                {title: "Ticker"},
-                {title: "Price"},
-                {title: "Change"},
+                {title: "SYMB"},
+                {title: "NOW"},
+                {title: "HIGH"},
+                {title: "LOW"},
             ];
 
             rows: root.stocks;
