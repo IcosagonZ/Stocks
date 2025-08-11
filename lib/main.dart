@@ -53,14 +53,106 @@ class _Page_HomeState extends State<Page_Home>
     StockData(4, "TSLA", "460", "481", "333", "N/A"),
   ];
 
+  void ui_dialog_info(BuildContext context, String title, String text)
+  {
+    showDialog
+    (
+      context: context,
+      builder: (BuildContext context)
+      {
+        return AlertDialog
+        (
+          title: Text(title),
+          content: Text(text),
+          actions:
+          [
+            TextButton
+            (
+              child: Text("Close"),
+              onPressed: (){Navigator.of(context).pop();},
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void ui_refresh()
   {
     print("[APP] Refresh requested");
   }
 
+  void ui_dialog_remove(BuildContext context)
+  {
+    showDialog
+    (
+      context: context,
+      builder: (BuildContext context)
+      {
+        return AlertDialog
+        (
+          title: Text("Remove item"),
+          content:TextField
+          (
+            controller: ui_controller_symbol,
+            decoration: InputDecoration(labelText: "Symbol"),
+          ),
+          actions:
+          [
+            TextButton
+            (
+              child: Text("Remove"),
+              onPressed: (){Navigator.of(context).pop();},
+            ),
+            TextButton
+            (
+              child: Text("Cancel"),
+              onPressed: (){Navigator.of(context).pop();},
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void ui_remove()
   {
     print("[APP] Remove requested");
+  }
+
+  final TextEditingController ui_controller_symbol = TextEditingController();
+
+  void ui_dialog_add(BuildContext context)
+  {
+    showDialog
+    (
+      context: context,
+      builder: (BuildContext context)
+      {
+        return AlertDialog
+        (
+          title: Text("Add item"),
+          content:TextField
+          (
+            controller: ui_controller_symbol,
+            decoration: InputDecoration(labelText: "Symbol"),
+          ),
+          actions:
+          [
+            TextButton
+            (
+              child: Text("Add"),
+              onPressed: (){Navigator.of(context).pop();},
+            ),
+            TextButton
+            (
+              child: Text("Cancel"),
+              onPressed: (){Navigator.of(context).pop();},
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void ui_add()
@@ -79,12 +171,25 @@ class _Page_HomeState extends State<Page_Home>
         actions:
         [
           IconButton(
+            icon: Icon(Icons.info),
+            onPressed: ()
+            {
+              ui_dialog_info(context, "Info", "Hello");
+            },
+          ),
+          IconButton(
             icon: Icon(Icons.remove),
-            onPressed: ui_remove,
+            onPressed: ()
+            {
+              ui_dialog_remove(context);
+            },
           ),
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: ui_add,
+            onPressed: ()
+            {
+              ui_dialog_add(context);
+            },
           ),
           IconButton(
             icon: Icon(Icons.refresh),
