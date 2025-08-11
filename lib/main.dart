@@ -53,6 +53,14 @@ class _Page_HomeState extends State<Page_Home>
     StockData(4, "TSLA", "460", "481", "333", "N/A"),
   ];
 
+  void ui_snackbar(BuildContext contex, String text)
+  {
+    ScaffoldMessenger.of(context).showSnackBar
+    (
+      SnackBar(content: Text(text)),
+    );
+  }
+
   void ui_dialog_info(BuildContext context, String title, String text)
   {
     showDialog
@@ -77,9 +85,32 @@ class _Page_HomeState extends State<Page_Home>
     );
   }
 
-  void ui_refresh()
+  void ui_refresh(BuildContext context)
   {
     print("[APP] Refresh requested");
+  }
+
+  final TextEditingController ui_controller_symbol_remove = TextEditingController();
+
+  void ui_remove(BuildContext context)
+  {
+    print("[APP] Remove requested");
+
+    final String symbol = ui_controller_symbol_remove.text;
+
+    if(symbol!=null)
+    {
+      setState(()
+      {
+        data_stocks.removeWhere((stock) => stock.symbol==symbol);
+        ui_controller_symbol_remove.clear();
+      }
+      );
+    }
+    else
+    {
+      ui_snackbar(context, "Invalid symbol");
+    }
   }
 
   void ui_dialog_remove(BuildContext context)
@@ -94,7 +125,7 @@ class _Page_HomeState extends State<Page_Home>
           title: Text("Remove item"),
           content:TextField
           (
-            controller: ui_controller_symbol,
+            controller: ui_controller_symbol_remove,
             decoration: InputDecoration(labelText: "Symbol"),
           ),
           actions:
@@ -102,7 +133,11 @@ class _Page_HomeState extends State<Page_Home>
             TextButton
             (
               child: Text("Remove"),
-              onPressed: (){Navigator.of(context).pop();},
+              onPressed: ()
+              {
+                ui_remove(context);
+                Navigator.of(context).pop();
+              },
             ),
             TextButton
             (
@@ -115,12 +150,27 @@ class _Page_HomeState extends State<Page_Home>
     );
   }
 
-  void ui_remove()
-  {
-    print("[APP] Remove requested");
-  }
+  final TextEditingController ui_controller_symbol_add = TextEditingController();
 
-  final TextEditingController ui_controller_symbol = TextEditingController();
+  void ui_add(BuildContext context)
+  {
+    print("[APP] Add requested");
+
+    final String symbol = ui_controller_symbol_add.text;
+    if(symbol!=null)
+    {
+      setState(()
+      {
+        data_stocks.add(StockData(0, symbol, "N/A", "N/A", "N/A", "N/A"));
+        ui_controller_symbol_add.clear();
+      }
+      );
+    }
+    else
+    {
+      ui_snackbar(context, "Invalid symbol");
+    }
+  }
 
   void ui_dialog_add(BuildContext context)
   {
@@ -134,7 +184,7 @@ class _Page_HomeState extends State<Page_Home>
           title: Text("Add item"),
           content:TextField
           (
-            controller: ui_controller_symbol,
+            controller: ui_controller_symbol_add,
             decoration: InputDecoration(labelText: "Symbol"),
           ),
           actions:
@@ -142,7 +192,11 @@ class _Page_HomeState extends State<Page_Home>
             TextButton
             (
               child: Text("Add"),
-              onPressed: (){Navigator.of(context).pop();},
+              onPressed: ()
+              {
+                Navigator.of(context).pop();
+                ui_add(context);
+              },
             ),
             TextButton
             (
@@ -153,11 +207,6 @@ class _Page_HomeState extends State<Page_Home>
         );
       },
     );
-  }
-
-  void ui_add()
-  {
-    print("[APP] Add requested");
   }
 
   @override
@@ -193,7 +242,10 @@ class _Page_HomeState extends State<Page_Home>
           ),
           IconButton(
             icon: Icon(Icons.refresh),
-            onPressed: ui_refresh,
+            onPressed: ()
+            {
+              ui_refresh(context);
+            },
           ),
         ],
       ),
