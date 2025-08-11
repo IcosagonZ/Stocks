@@ -53,6 +53,21 @@ class _Page_HomeState extends State<Page_Home>
     StockData(4, "TSLA", "460", "481", "333", "N/A"),
   ];
 
+  void ui_refresh()
+  {
+    print("[APP] Refresh requested");
+  }
+
+  void ui_remove()
+  {
+    print("[APP] Remove requested");
+  }
+
+  void ui_add()
+  {
+    print("[APP] Add requested");
+  }
+
   @override
   Widget build(BuildContext context)
   {
@@ -61,6 +76,21 @@ class _Page_HomeState extends State<Page_Home>
       appBar: AppBar
       (
         title: Text(widget.title),
+        actions:
+        [
+          IconButton(
+            icon: Icon(Icons.remove),
+            onPressed: ui_remove,
+          ),
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: ui_add,
+          ),
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: ui_refresh,
+          ),
+        ],
       ),
       body: SizedBox.expand
       (
