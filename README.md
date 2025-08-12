@@ -19,3 +19,8 @@ A simple stock tracker made with Flutter and Dart.
 - [X] Dark mode
 - [ ] Calculate change
 - [ ] Graphs
+
+## How to use
+- Clone this repository
+- Add API in lib/apis.dart in this format: `const String finhubb_api_key = "YOUR_API";`
+- flutter run
