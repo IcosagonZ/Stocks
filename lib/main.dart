@@ -280,13 +280,6 @@ class _Page_HomeState extends State<Page_Home>
         actions:
         [
           IconButton(
-            icon: Icon(Icons.info),
-            onPressed: ()
-            {
-              ui_dialog_info(context, "Info", "Hello");
-            },
-          ),
-          IconButton(
             icon: Icon(Icons.remove),
             onPressed: ()
             {
