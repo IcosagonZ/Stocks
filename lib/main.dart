@@ -1,19 +1,25 @@
+// Import libraries
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:http/http.dart' as http;
+
+// Main app
 void main()
 {
   runApp(const MyApp());
 }
 
+// Struct to hold stock data
 class StockData
 {
-  final int id;
-  final String symbol;
-  final String current;
-  final String high;
-  final String low;
-  final String update_time;
-  StockData(this.id, this.symbol, this.current, this.high, this.low, this.update_time);
+  int id;
+  String symbol;
+  String current;
+  String high;
+  String low;
+  int update_status;
+  StockData(this.id, this.symbol, this.current, this.high, this.low, this.update_status);
 }
 
 class MyApp extends StatelessWidget
@@ -45,15 +51,19 @@ class Page_Home extends StatefulWidget
 
 class _Page_HomeState extends State<Page_Home>
 {
+  // Sample data
   List<StockData> data_stocks =
   [
-    StockData(1, "MSFT", "420", "450", "321", "N/A"),
-    StockData(2, "SPOT", "424", "551", "420", "N/A"),
-    StockData(3, "APPL", "415", "463", "322", "N/A"),
-    StockData(4, "TSLA", "460", "481", "333", "N/A"),
+    StockData(0, "GOOG", "N/A", "N/A", "N/A", 0),
+    StockData(0, "SPOT", "N/A", "N/A", "N/A", 0),
+    StockData(0, "AAPL", "N/A", "N/A", "N/A", 0),
   ];
 
-  void ui_snackbar(BuildContext contex, String text)
+  // Finnhub API key
+  String stock_api_key = "";
+
+  // Display small info
+  void ui_snackbar(BuildContext context, String text)
   {
     ScaffoldMessenger.of(context).showSnackBar
     (
@@ -61,6 +71,7 @@ class _Page_HomeState extends State<Page_Home>
     );
   }
 
+  // Display info in dialog
   void ui_dialog_info(BuildContext context, String title, String text)
   {
     showDialog
@@ -85,11 +96,57 @@ class _Page_HomeState extends State<Page_Home>
     );
   }
 
-  void ui_refresh(BuildContext context)
+  // Fetch data using API
+  Future<StockData> stocks_fetch(BuildContext context, String symbol, String apikey) async
   {
-    print("[APP] Refresh requested");
+    final url = Uri.parse("https://finnhub.io/api/v1/quote?symbol=$symbol&token=$apikey");
+
+    final response = await http.get(url);
+
+    StockData stock_return = StockData(0, symbol, "N/A", "N/A", "N/A", 0);
+
+    if(response.statusCode==200)
+    {
+      final data = json.decode(response.body);
+      stock_return.current = data["c"].toString();
+      stock_return.high = data["h"].toString();
+      stock_return.low = data["l"].toString();
+      stock_return.update_status = response.statusCode;
+
+      print("[STOCK] Fetched for ${symbol} current ${stock_return.current}");
+    }
+    else
+    {
+      stock_return.update_status = response.statusCode;
+      ui_snackbar(context, "Error code: ${response.statusCode}");
+      print("[ERROR] Fetch error ${response.statusCode}");
+    }
+
+    return stock_return;
   }
 
+  // Refresh data
+  Future<void> ui_refresh (BuildContext context) async
+  {
+    print("[APP] Refresh requested");
+
+    List<StockData> data_stocks_new = [];
+    StockData stock_temp;
+
+    for(int i=0; i<data_stocks.length; i++)
+    {
+      stock_temp = await stocks_fetch(context, data_stocks[i].symbol, stock_api_key);
+      data_stocks_new.add(stock_temp);
+    }
+
+    setState(()
+    {
+      data_stocks = data_stocks_new;
+    }
+    );
+  }
+
+  // Remove stock item
   final TextEditingController ui_controller_symbol_remove = TextEditingController();
 
   void ui_remove(BuildContext context)
@@ -150,6 +207,7 @@ class _Page_HomeState extends State<Page_Home>
     );
   }
 
+  // Add stock item
   final TextEditingController ui_controller_symbol_add = TextEditingController();
 
   void ui_add(BuildContext context)
@@ -161,7 +219,7 @@ class _Page_HomeState extends State<Page_Home>
     {
       setState(()
       {
-        data_stocks.add(StockData(0, symbol, "N/A", "N/A", "N/A", "N/A"));
+        data_stocks.add(StockData(0, symbol, "N/A", "N/A", "N/A", 0));
         ui_controller_symbol_add.clear();
       }
       );
@@ -209,6 +267,7 @@ class _Page_HomeState extends State<Page_Home>
     );
   }
 
+  // Main app UI
   @override
   Widget build(BuildContext context)
   {

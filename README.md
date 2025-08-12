@@ -15,7 +15,7 @@ A simple stock tracker made with Flutter and Dart.
 ## To-do
 - [X] Basic UI
 - [X] Basic functionality (update items, add items, remove items)
-- [ ] Fetch basic data from web
+- [X] Fetch basic data from web
 - [X] Dark mode
 - [ ] Calculate change
 - [ ] Graphs
