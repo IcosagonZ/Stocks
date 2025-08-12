@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import "apis.dart";
 
 // Main app
 void main()
@@ -60,7 +61,7 @@ class _Page_HomeState extends State<Page_Home>
   ];
 
   // Finnhub API key
-  String stock_api_key = "";
+  String stock_api_key = finhubb_api_key;
 
   // Display small info
   void ui_snackbar(BuildContext context, String text)
